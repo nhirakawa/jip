@@ -1,5 +1,7 @@
 package com.github.nhirakawa.models;
 
+import java.util.Optional;
+
 import org.immutables.value.Value.Immutable;
 
 @Immutable
@@ -7,7 +9,7 @@ import org.immutables.value.Value.Immutable;
 public abstract class AbstractOperation {
 
   public abstract OperationType getOperationType();
-  public abstract int getX();
-  public abstract int getY();
-  public abstract int getN();
+  public abstract Optional<Integer> getX();
+  public abstract Optional<Integer> getY();
+  public abstract Optional<Integer> getN();
 }
