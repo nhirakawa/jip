@@ -2,7 +2,6 @@ package com.github.nhirakawa.config;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.base.Throwables;
