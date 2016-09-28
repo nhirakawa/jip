@@ -1,5 +1,8 @@
 package com.github.nhirakawa.emulator;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 public class MemoryManagementUnit {
 
   private final int[] memory;
@@ -8,12 +11,13 @@ public class MemoryManagementUnit {
   private final boolean[] graphics;
   private final boolean[] keypad;
 
-  public MemoryManagementUnit(int memorySize,
-                              int registerSize,
-                              int stackSize,
-                              int graphicsWidth,
-                              int graphicsHeight,
-                              int keypadSize) {
+  @Inject
+  public MemoryManagementUnit(@Named("memory") int memorySize,
+                              @Named("registers") int registerSize,
+                              @Named("stack") int stackSize,
+                              @Named("screen.width") int graphicsWidth,
+                              @Named("screen.height") int graphicsHeight,
+                              @Named("keypad") int keypadSize) {
     this.memory = new int[memorySize];
     this.registers = new int[registerSize];
     this.stack = new int[stackSize];
