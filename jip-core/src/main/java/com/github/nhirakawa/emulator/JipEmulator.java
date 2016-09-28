@@ -5,12 +5,16 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.github.nhirakawa.models.OpCode;
 import com.github.nhirakawa.models.OpCodeType;
 import com.google.inject.Inject;
 
 public class JipEmulator {
+
+  private static final Logger LOG = LogManager.getLogger(JipEmulator.class);
 
   private static final int FONT_OFFSET = 0x050;
   private static final int ROM_OFFSET = 0x200;
@@ -48,7 +52,7 @@ public class JipEmulator {
   public void step() {
     OpCode opcode = fetchOpCode();
     programCounter += 2;
-    System.out.println(opcode);
+    LOG.debug("{}", opcode);
   }
 
   private OpCode fetchOpCode() {
