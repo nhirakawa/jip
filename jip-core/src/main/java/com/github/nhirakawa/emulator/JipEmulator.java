@@ -53,6 +53,7 @@ public class JipEmulator {
     OpCode opcode = fetchOpCode();
     programCounter += 2;
     LOG.debug("{}", opcode);
+    executeOpCode(opcode);
   }
 
   private OpCode fetchOpCode() {
@@ -66,10 +67,21 @@ public class JipEmulator {
         .build();
   }
 
+  private void executeOpCode(OpCode opcode) {
+    LOG.debug("executing {}", opcode);
+    switch (opcode.getOpCodeType()) {
+      case OP_6XNN:
+        memoryManagementUnit.writeRegister(opcode.getX(), opcode.getN());
+        break;
+      default:
+        throw new UnsupportedOperationException(opcode.getOpCodeType());
+    }
+  }
+
   public static class UnsupportedOperationException extends RuntimeException {
 
     public UnsupportedOperationException(OpCodeType opCode) {
-      super(String.format("%s is not supported yet", opCode));
+      super(String.format("%s is not supported", opCode));
     }
   }
 
