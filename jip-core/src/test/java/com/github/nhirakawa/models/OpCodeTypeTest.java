@@ -20,7 +20,7 @@ public class OpCodeTypeTest {
   }
 
   @Test
-  public void itParses0x00EE() {
+  public void itParses00EE() {
     int op = 0x00EE;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_00EE);
@@ -30,7 +30,7 @@ public class OpCodeTypeTest {
   }
 
   @Test
-  public void itParses0x1NNN() {
+  public void itParses1NNN() {
     int op = 0x1000;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_1NNN);
@@ -46,7 +46,7 @@ public class OpCodeTypeTest {
   }
 
   @Test
-  public void itParses0x1BNNN() {
+  public void itParses1BNNN() {
     int op = 0xBFFF;
     OpCodeType opcode = OpCodeType.of(0xBFFF);
     assertThat(opcode).isEqualTo(OpCodeType.OP_BNNN);
@@ -60,6 +60,16 @@ public class OpCodeTypeTest {
     assertThat(opcode.getX(op)).isEqualTo(0);
     assertThat(opcode.getY(op)).isEqualTo(0);
     assertThat(opcode.getN(op)).isEqualTo(0);
+  }
+
+  @Test
+  public void itParses6XNN() {
+    int op = 0x6FAA;
+    OpCodeType opcode = OpCodeType.of(op);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_6XNN);
+    assertThat(opcode.getX(op)).isEqualTo(0xF);
+    assertThat(opcode.getY(op)).isEqualTo(0x0);
+    assertThat(opcode.getN(op)).isEqualTo(0xAA);
   }
 
   @Test

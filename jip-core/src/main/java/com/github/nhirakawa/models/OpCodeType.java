@@ -89,11 +89,11 @@ public enum OpCodeType {
   }
 
   public int getX(int op) {
-    return op & xMask;
+    return (op & xMask) >> 8;
   }
 
   public int getY(int op) {
-    return op & yMask;
+    return (op & yMask) >> 4;
   }
 
   public int getN(int op) {
