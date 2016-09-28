@@ -33,6 +33,10 @@ public class MemoryManagementUnit {
     memory[offset] = value;
   }
 
+  public void writeMemory(int offset, int[] values) {
+    System.arraycopy(values, 0, memory, offset, values.length);
+  }
+
   public int readRegister(int offset) {
     return registers[offset];
   }

@@ -30,7 +30,17 @@ public class MemoryManagementUnitTest {
     mmu.writeMemory(0, 100);
     assertThat(mmu.readMemory(0)).isEqualTo(100);
     assertThat(mmu.readMemory(1)).isEqualTo(0);
+  }
 
+  @Test
+  public void itReadsAndWritesMemoryBlocks() {
+    mmu.writeMemory(0, new int[]{100, 200});
+    assertThat(mmu.readMemory(0)).isEqualTo(100);
+    assertThat(mmu.readMemory(1)).isEqualTo(200);
+
+    mmu.writeMemory(0, new int[]{1000, 2000});
+    assertThat(mmu.readMemory(0)).isEqualTo(1000);
+    assertThat(mmu.readMemory(1)).isEqualTo(2000);
   }
 
   @Test
