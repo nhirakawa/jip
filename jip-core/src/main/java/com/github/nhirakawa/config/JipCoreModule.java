@@ -19,7 +19,6 @@ public class JipCoreModule extends AbstractModule {
       List<String> lines = Resources.readLines(Resources.getResource("jip-core.properties"), Charset.defaultCharset());
       for (String line : lines) {
         String[] property = line.split("=");
-        System.out.println(Arrays.toString(property));
         binder().bind(Key.get(Integer.class, Names.named(property[0]))).toInstance(Integer.parseInt(property[1]));
       }
     } catch (IOException e) {
