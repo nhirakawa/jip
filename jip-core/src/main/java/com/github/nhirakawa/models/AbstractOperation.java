@@ -12,4 +12,7 @@ public abstract class AbstractOperation {
   public abstract Optional<Integer> getX();
   public abstract Optional<Integer> getY();
   public abstract Optional<Integer> getN();
+  public abstract Optional<MemoryType> getSource();
+  public abstract Optional<MemoryType> getTarget();
+  public abstract Optional<Operator> getOperator();
 }
