@@ -2,10 +2,12 @@ package com.github.nhirakawa.emulator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
 
 import com.github.nhirakawa.models.OpCode;
+import com.github.nhirakawa.models.OpCodeType;
 import com.google.inject.Inject;
 
 public class JipEmulator {
@@ -28,8 +30,11 @@ public class JipEmulator {
   }
 
   public void loadRom(File file) throws IOException {
-    byte[] rom = IOUtils.toByteArray(file.toURI());
-    loadRom(rom);
+    loadRom(file.toURI());
+  }
+
+  public void loadRom(URI uri) throws IOException {
+    loadRom(IOUtils.toByteArray(uri));
   }
 
   public void loadRom(byte[] rom) {
@@ -47,40 +52,19 @@ public class JipEmulator {
   }
 
   private OpCode fetchOpCode() {
-    int op1 = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter);
-    int op2 = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
-    return OpCode.of(op1 << 8 | op2);
-  }
-
-  private void executeOpCode(OpCode opcode) {
-    switch (opcode) {
-      default:
-        throw new UnsupportedOperationException(opcode);
-    }
-  }
-
-  private static int getX(int op) {
-    return op & 0x0F00 >> 8;
-  }
-
-  private static int getY(int op) {
-    return op & 0x00F0 >> 4;
-  }
-
-  private static int getN(int op, int places) {
-    if (places < 1 || places > 3) {
-      throw new IllegalArgumentException(String.format("cannot get %d places", places));
-    }
-    int mask = 0xF;
-    while (places > 1) {
-      mask = (mask << 4) & 0xF;
-    }
-    return op & mask;
+    int op = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter) << 8 | memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
+    OpCodeType opType = OpCodeType.of(op);
+    return OpCode.builder()
+        .setOpCodeType(opType)
+        .setX(opType.getX(op))
+        .setY(opType.getY(op))
+        .setN(opType.getN(op))
+        .build();
   }
 
   public static class UnsupportedOperationException extends RuntimeException {
 
-    public UnsupportedOperationException(OpCode opCode) {
+    public UnsupportedOperationException(OpCodeType opCode) {
       super(String.format("%s is not supported yet", opCode));
     }
   }
