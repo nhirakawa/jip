@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 
+import com.github.nhirakawa.models.OpCode;
 import com.google.inject.Inject;
 
 public class JipEmulator {
@@ -40,15 +41,15 @@ public class JipEmulator {
   }
 
   public void step() {
-    int opcode = fetchOpCode();
+    OpCode opcode = fetchOpCode();
     programCounter += 2;
-    System.out.println(String.format("0x%s", Integer.toHexString(opcode)));
+    System.out.println(opcode);
   }
 
-  private int fetchOpCode() {
+  private OpCode fetchOpCode() {
     int op1 = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter);
     int op2 = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
-    return op1 << 8 | op2;
+    return OpCode.of(op1 << 8 | op2);
   }
 
 }
