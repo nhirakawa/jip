@@ -11,24 +11,55 @@ public class OpCodeTypeTest {
 
   @Test
   public void itParses0x00E0() {
-    assertThat(OpCodeType.of(0x00E0)).isEqualTo(OpCodeType.OP_00E0);
+    int op = 0x00E0;
+    OpCodeType opcode = OpCodeType.of(op);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_00E0);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0);
   }
 
   @Test
   public void itParses0x00EE() {
-    assertThat(OpCodeType.of(0x00EE)).isEqualTo(OpCodeType.OP_00EE);
+    int op = 0x00EE;
+    OpCodeType opcode = OpCodeType.of(op);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_00EE);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0);
   }
 
   @Test
-  public void itParses0x1NNN(){
-    assertThat(OpCodeType.of(0x1000)).isEqualTo(OpCodeType.OP_1NNN);
-    assertThat(OpCodeType.of(0x1FFF)).isEqualTo(OpCodeType.OP_1NNN);
+  public void itParses0x1NNN() {
+    int op = 0x1000;
+    OpCodeType opcode = OpCodeType.of(op);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_1NNN);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0);
+
+    op = 0x1FFF;
+    assertThat(opcode).isEqualTo(OpCodeType.OP_1NNN);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0xFFF);
   }
 
   @Test
-  public void itParses0x1BNNN(){
-    assertThat(OpCodeType.of(0xBFFF)).isEqualTo(OpCodeType.OP_BNNN);
-    assertThat(OpCodeType.of(0xB000)).isEqualTo(OpCodeType.OP_BNNN);
+  public void itParses0x1BNNN() {
+    int op = 0xBFFF;
+    OpCodeType opcode = OpCodeType.of(0xBFFF);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_BNNN);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0xFFF);
+
+    op = 0xB000;
+    opcode = OpCodeType.of(op);
+    assertThat(opcode).isEqualTo(OpCodeType.OP_BNNN);
+    assertThat(opcode.getX(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(0);
   }
 
   @Test
