@@ -1,6 +1,7 @@
 package com.github.nhirakawa.models;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
@@ -13,8 +14,8 @@ public class OperationCodeTest {
     assertThat(OperationCode.fromInteger(0x00E0)).isEqualTo(OperationCode.OP00E0);
   }
 
-  @Test(expected = UnknownOperationException.class)
+  @Test
   public void testUnkownOperationCode() {
-    OperationCode.fromInteger(-1);
+    assertThatThrownBy(() -> OperationCode.fromInteger(-1)).isInstanceOf(UnknownOperationException.class);
   }
 }
