@@ -17,9 +17,6 @@ public class JipEmulator {
 
   private static final Logger LOG = LogManager.getLogger(JipEmulator.class);
 
-  private static final int FONT_OFFSET = 0x050;
-  private static final int ROM_OFFSET = 0x200;
-
   private int indexRegister;
   private int programCounter;
   private int stackPointer;
@@ -59,7 +56,7 @@ public class JipEmulator {
   }
 
   public void loadRom(int[] rom) {
-    memoryManagementUnit.writeMemory(ROM_OFFSET, rom);
+    memoryManagementUnit.writeMemory(0, rom);
   }
 
   int getProgramCounter() {
@@ -106,7 +103,7 @@ public class JipEmulator {
   }
 
   private OpCode fetchOpCode() {
-    int op = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter) << 8 | memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
+    int op = memoryManagementUnit.readMemory(programCounter) << 8 | memoryManagementUnit.readMemory(programCounter + 1);
     OpCodeType opType = OpCodeType.of(op);
     return OpCode.builder()
         .setOpCodeType(opType)
