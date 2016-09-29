@@ -141,6 +141,9 @@ public class JipEmulator {
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
         break;
+      case OP_FX07:
+        memoryManagementUnit.writeRegister(opcode.getX(), delayTimer);
+        break;
       case OP_FX15:
         delayTimer = memoryManagementUnit.readRegister(opcode.getX());
         break;

@@ -71,6 +71,15 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesFX07() {
+    emulator.setDelayTimer(7);
+    mmu.writeRegister(1, 4);
+    emulator.loadRom(ints(0xF1, 0x07));
+    emulator.step();
+    assertThat(mmu.readRegister(1)).isEqualTo(7);
+  }
+
+  @Test
   public void itExecutesFX15() {
     emulator.setDelayTimer(9);
     mmu.writeRegister(0xA, 0xA);
