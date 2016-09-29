@@ -54,10 +54,9 @@ public class JipEmulatorTest {
   public void itExecutes2NNN() {
     mmu.writeStack(0, -1);
     emulator.loadRom(ints(0x2B, 0xED));
-    emulator.setProgramCounter(0);
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(0xBED);
-    assertThat(mmu.readStack(0)).isEqualTo(0);
+    assertThat(mmu.readStack(0)).isEqualTo(512);
   }
 
   @Test
@@ -65,12 +64,12 @@ public class JipEmulatorTest {
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0A));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0B));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
 
   }
 
@@ -79,12 +78,12 @@ public class JipEmulatorTest {
     mmu.writeRegister(0, 0xD);
     emulator.loadRom(ints(0x40, 0x0E));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     mmu.writeRegister(0, 0xE);
     emulator.loadRom(ints(0x40, 0x0E));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
@@ -93,13 +92,13 @@ public class JipEmulatorTest {
     mmu.writeRegister(1, 0xD);
     emulator.loadRom(ints(0x50, 0x10));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     mmu.writeRegister(0, 0xD);
     mmu.writeRegister(1, 0xF);
     emulator.loadRom(ints(0x50, 0x10));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
@@ -157,13 +156,13 @@ public class JipEmulatorTest {
     mmu.writeRegister(1, 0xE);
     emulator.loadRom(ints(0x90, 0x10));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     mmu.writeRegister(0, 0x3);
     mmu.writeRegister(1, 0x3);
     emulator.loadRom(ints(0x90, 0x10));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
@@ -187,14 +186,14 @@ public class JipEmulatorTest {
     mmu.writeKeypad(0, true);
     emulator.loadRom(ints(0xE0, 0x9E));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     emulator.setIndexRegister(0);
 
     mmu.writeKeypad(0, false);
     emulator.loadRom(ints(0xE0, 0x9E));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
@@ -202,14 +201,14 @@ public class JipEmulatorTest {
     mmu.writeKeypad(0, false);
     emulator.loadRom(ints(0xE0, 0xA1));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+    assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
     emulator.setIndexRegister(0);
 
     mmu.writeKeypad(0, true);
     emulator.loadRom(ints(0xE0, 0xA1));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
@@ -226,14 +225,14 @@ public class JipEmulatorTest {
     mmu.writeKeypad(0, false);
     emulator.loadRom(ints(0xF0, 0x0A));
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(0);
+    assertThat(emulator.getProgramCounter()).isEqualTo(512);
 
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(0);
+    assertThat(emulator.getProgramCounter()).isEqualTo(512);
 
     mmu.writeKeypad(0, true);
     emulator.step();
-    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test

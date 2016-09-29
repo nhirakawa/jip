@@ -17,6 +17,8 @@ public class JipEmulator {
 
   private static final Logger LOG = LogManager.getLogger(JipEmulator.class);
 
+  private static final int ROM_OFFSET = 0x200;
+
   private int indexRegister;
   private int programCounter;
   private int stackPointer;
@@ -56,8 +58,8 @@ public class JipEmulator {
   }
 
   public void loadRom(int[] rom) {
-    memoryManagementUnit.writeMemory(0, rom);
-    programCounter = 0;
+    memoryManagementUnit.writeMemory(ROM_OFFSET, rom);
+    programCounter = ROM_OFFSET;
   }
 
   int getProgramCounter() {
