@@ -62,6 +62,15 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes8XY3() {
+    mmu.writeRegister(0, 1);
+    mmu.writeRegister(1, 2);
+    emulator.loadRom(ints(0x80, 0x13));
+    emulator.step();
+    assertThat(mmu.readRegister(0x0)).isEqualTo(1 ^ 2);
+  }
+
+  @Test
   public void itThrowsUnsupportedOperationException() {
     emulator.loadRom(new byte[] { 0x50, 0x0F });
     assertThatThrownBy(() -> emulator.step()).isInstanceOf(UnsupportedOperationException.class);
