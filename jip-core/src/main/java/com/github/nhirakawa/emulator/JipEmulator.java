@@ -145,6 +145,9 @@ public class JipEmulator {
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
         break;
+      case OP_ANNN:
+        indexRegister = opcode.getN();
+        break;
       case OP_CXNN:
         int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
         memoryManagementUnit.writeRegister(opcode.getX(), rand);

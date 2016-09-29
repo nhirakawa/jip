@@ -75,6 +75,14 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesANNN() {
+    emulator.setIndexRegister(5);
+    emulator.loadRom(ints(0xAA, 0xEC));
+    emulator.step();
+    assertThat(emulator.getIndexRegister()).isEqualTo(0xAEC);
+  }
+
+  @Test
   public void itExecutesCXNN() {
     mmu.writeRegister(0, 10);
     emulator.loadRom(ints(0xC0, 0xA0));
