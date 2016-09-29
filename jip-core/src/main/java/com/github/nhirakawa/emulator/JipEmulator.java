@@ -62,13 +62,6 @@ public class JipEmulator {
     memoryManagementUnit.writeMemory(ROM_OFFSET, rom);
   }
 
-  public void step() {
-    OpCode opcode = fetchOpCode();
-    programCounter += 2;
-    LOG.debug("{}", opcode);
-    executeOpCode(opcode);
-  }
-
   int getProgramCounter() {
     return programCounter;
   }
@@ -101,6 +94,14 @@ public class JipEmulator {
     delayTimer = i;
   }
 
+  public void step() {
+    OpCode opcode = fetchOpCode();
+    programCounter += 2;
+    LOG.debug("{}", opcode);
+    int instructionsToAdvance = executeOpCode(opcode);
+    programCounter += (instructionsToAdvance * 2);
+  }
+
   private OpCode fetchOpCode() {
     int op = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter) << 8 | memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
     OpCodeType opType = OpCodeType.of(op);
@@ -112,7 +113,7 @@ public class JipEmulator {
         .build();
   }
 
-  private void executeOpCode(OpCode opcode) {
+  private int executeOpCode(OpCode opcode) {
     LOG.debug("executing {}", opcode);
     final int memoryX;
     final int memoryY;
@@ -167,6 +168,7 @@ public class JipEmulator {
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
     }
+    return 2;
   }
 
   public static class UnsupportedOperationException extends RuntimeException {
