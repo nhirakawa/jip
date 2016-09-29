@@ -61,6 +61,12 @@ public class MemoryManagementUnit {
     graphics[offset] = value;
   }
 
+  public void clearGraphics() {
+    for (int i = 0; i < graphics.length; i++) {
+      graphics[i] = false;
+    }
+  }
+
   public boolean readKeypad(int offset) {
     return keypad[offset];
   }

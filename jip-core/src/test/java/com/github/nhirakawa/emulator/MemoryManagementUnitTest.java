@@ -34,11 +34,11 @@ public class MemoryManagementUnitTest {
 
   @Test
   public void itReadsAndWritesMemoryBlocks() {
-    mmu.writeMemory(0, new int[]{100, 200});
+    mmu.writeMemory(0, new int[] { 100, 200 });
     assertThat(mmu.readMemory(0)).isEqualTo(100);
     assertThat(mmu.readMemory(1)).isEqualTo(200);
 
-    mmu.writeMemory(0, new int[]{1000, 2000});
+    mmu.writeMemory(0, new int[] { 1000, 2000 });
     assertThat(mmu.readMemory(0)).isEqualTo(1000);
     assertThat(mmu.readMemory(1)).isEqualTo(2000);
   }
@@ -74,6 +74,15 @@ public class MemoryManagementUnitTest {
     mmu.writeGraphics(0, false);
     assertThat(mmu.readGraphics(0)).isFalse();
     assertThat(mmu.readGraphics(0)).isFalse();
+  }
+
+  @Test
+  public void itClearsGraphics() {
+    mmu.writeGraphics(0, true);
+    mmu.writeGraphics(0, true);
+    mmu.clearGraphics();
+    assertThat(mmu.readGraphics(0)).isFalse();
+    assertThat(mmu.readGraphics(1)).isFalse();
   }
 
   @Test
