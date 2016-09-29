@@ -115,8 +115,6 @@ public class JipEmulator {
 
   private int executeOpCode(OpCode opcode) {
     LOG.debug("executing {}", opcode);
-    final int memoryX;
-    final int memoryY;
     final int registerX;
     final int registerY;
     switch (opcode.getOpCodeType()) {
