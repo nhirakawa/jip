@@ -66,6 +66,10 @@ public class JipEmulator {
     return programCounter;
   }
 
+  void setProgramCounter(int i){
+    programCounter = i;
+  }
+
   int getStackPointer() {
     return stackPointer;
   }
@@ -96,7 +100,6 @@ public class JipEmulator {
 
   public void step() {
     OpCode opcode = fetchOpCode();
-    programCounter += 2;
     LOG.debug("{}", opcode);
     int instructionsToAdvance = executeOpCode(opcode);
     programCounter += (instructionsToAdvance * 2);
@@ -118,6 +121,16 @@ public class JipEmulator {
     final int registerX;
     final int registerY;
     switch (opcode.getOpCodeType()) {
+      case OP_3XNN:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        return registerX == opcode.getN() ? 2 : 1;
+      case OP_4XNN:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        return registerX != opcode.getN() ? 2 : 1;
+      case OP_5XY0:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        registerY = memoryManagementUnit.readRegister(opcode.getY());
+        return registerX == registerY ? 2 : 1;
       case OP_6XNN:
         memoryManagementUnit.writeRegister(opcode.getX(), opcode.getN());
         return 1;

@@ -1,14 +1,11 @@
 package com.github.nhirakawa.emulator;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.nhirakawa.emulator.JipEmulator.UnsupportedOperationException;
 
 public class JipEmulatorTest {
 
@@ -23,6 +20,54 @@ public class JipEmulatorTest {
     mmu = new MemoryManagementUnit(4096, 16, 16, 16, 16, 16);
     random = new Random(100);
     emulator = new JipEmulator(mmu, random);
+  }
+
+  @Test
+  public void itExecutes3XNN() {
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xA);
+    emulator.loadRom(ints(0x30, 0x0A));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xA);
+    emulator.loadRom(ints(0x30, 0x0B));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+
+  }
+
+  @Test
+  public void itExecutes4XNN() {
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xD);
+    emulator.loadRom(ints(0x40, 0x0E));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xE);
+    emulator.loadRom(ints(0x40, 0x0E));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+  }
+
+  @Test
+  public void itExecutes5XY0() {
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xD);
+    mmu.writeRegister(1, 0xD);
+    emulator.loadRom(ints(0x50, 0x10));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+
+    emulator.setProgramCounter(0);
+    mmu.writeRegister(0, 0xD);
+    mmu.writeRegister(1, 0xF);
+    emulator.loadRom(ints(0x50, 0x10));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(2);
   }
 
   @Test
@@ -124,12 +169,6 @@ public class JipEmulatorTest {
     emulator.loadRom(ints(0xF0, 0x1E));
     emulator.step();
     assertThat(emulator.getIndexRegister()).isEqualTo(6);
-  }
-
-  @Test
-  public void itThrowsUnsupportedOperationException() {
-    emulator.loadRom(new byte[] { 0x50, 0x0F });
-    assertThatThrownBy(() -> emulator.step()).isInstanceOf(UnsupportedOperationException.class);
   }
 
   private static int translateAddress(int a) {
