@@ -93,6 +93,10 @@ public class JipEmulator {
     return delayTimer;
   }
 
+  void setDelayTimer(int i) {
+    delayTimer = i;
+  }
+
   private OpCode fetchOpCode() {
     int op = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter) << 8 | memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
     OpCodeType opType = OpCodeType.of(op);
@@ -136,6 +140,9 @@ public class JipEmulator {
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
+        break;
+      case OP_FX15:
+        delayTimer = memoryManagementUnit.readRegister(opcode.getX());
         break;
       case OP_FX18:
         soundTimer = memoryManagementUnit.readRegister(opcode.getX());
