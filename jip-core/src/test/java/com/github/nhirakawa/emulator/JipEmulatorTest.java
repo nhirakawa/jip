@@ -23,16 +23,24 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes6XNN() {
-    emulator.loadRom(new byte[] { 0x65, 0x07 });
+    emulator.loadRom(ints(0x65, 0x07));
     emulator.step();
     assertThat(mmu.readRegister(0x5)).isEqualTo(7);
   }
 
   @Test
   public void itExecutes7XNN() {
-    emulator.loadRom(new byte[] { 0x7A, 0x4F });
+    emulator.loadRom(ints(0x7A, 0x4F));
     emulator.step();
     assertThat(mmu.readRegister(0xA)).isEqualTo(0x4F);
+  }
+
+  @Test
+  public void itExecutes8XY0() {
+    mmu.writeRegister(0xA, 0xB);
+    emulator.loadRom(ints(0x80, 0xA0));
+    emulator.step();
+    assertThat(mmu.readRegister(0)).isEqualTo(0xB);
   }
 
   @Test
@@ -44,4 +52,9 @@ public class JipEmulatorTest {
   private static int translateAddress(int a) {
     return ROM_OFFSET + a;
   }
+
+  private static int[] ints(int... ints) {
+    return ints;
+  }
+
 }

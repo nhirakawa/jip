@@ -46,7 +46,11 @@ public class JipEmulator {
     for (int i = 0; i < rom.length; i++) {
       translatedRom[i] = (rom[i] & 0xFF);
     }
-    memoryManagementUnit.writeMemory(ROM_OFFSET, translatedRom);
+    loadRom(translatedRom);
+  }
+
+  public void loadRom(int[] rom) {
+    memoryManagementUnit.writeMemory(ROM_OFFSET, rom);
   }
 
   public void step() {
@@ -76,6 +80,10 @@ public class JipEmulator {
       case OP_7XNN:
         int registerX = memoryManagementUnit.readRegister(opcode.getX());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX + opcode.getN());
+        break;
+      case OP_8XY0:
+        int registerY = memoryManagementUnit.readRegister(opcode.getY());
+        memoryManagementUnit.writeRegister(opcode.getX(), registerY);
         break;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
