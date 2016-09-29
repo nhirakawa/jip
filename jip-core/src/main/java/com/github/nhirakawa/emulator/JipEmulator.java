@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.github.nhirakawa.models.Font;
 import com.github.nhirakawa.models.OpCode;
 import com.github.nhirakawa.models.OpCodeType;
 import com.google.inject.Inject;
@@ -17,6 +18,7 @@ public class JipEmulator {
 
   private static final Logger LOG = LogManager.getLogger(JipEmulator.class);
 
+  private static final int FONT_OFFSET = 0x050;
   private static final int ROM_OFFSET = 0x200;
 
   private int indexRegister;
@@ -39,6 +41,7 @@ public class JipEmulator {
     this.stackPointer = 0;
     this.soundTimer = 0;
     this.delayTimer = 0;
+    loadFontSet();
   }
 
   public void loadRom(File file) throws IOException {
@@ -225,6 +228,14 @@ public class JipEmulator {
         return 1;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
+    }
+  }
+
+  private void loadFontSet() {
+    int index = 0;
+    for (Font f : Font.values()) {
+      memoryManagementUnit.writeMemory(FONT_OFFSET + (index * 5), f.getPixels());
+      index++;
     }
   }
 
