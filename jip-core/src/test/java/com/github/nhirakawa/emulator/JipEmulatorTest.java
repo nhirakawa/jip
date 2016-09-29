@@ -51,6 +51,16 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes2NNN() {
+    mmu.writeStack(0, -1);
+    emulator.loadRom(ints(0x2B, 0xED));
+    emulator.setProgramCounter(0);
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(0xBED);
+    assertThat(mmu.readStack(0)).isEqualTo(0);
+  }
+
+  @Test
   public void itExecutes3XNN() {
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0A));
