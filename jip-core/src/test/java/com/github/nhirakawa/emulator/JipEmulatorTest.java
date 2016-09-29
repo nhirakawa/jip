@@ -71,6 +71,15 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesFX18() {
+    emulator.setSoundTimer(1);
+    mmu.writeRegister(0, 6);
+    emulator.loadRom(ints(0xF0, 0x18));
+    emulator.step();
+    assertThat(emulator.getSoundTimer()).isEqualTo(6);
+  }
+
+  @Test
   public void itExecutesFX1E() {
     emulator.setIndexRegister(1);
     mmu.writeRegister(0, 5);

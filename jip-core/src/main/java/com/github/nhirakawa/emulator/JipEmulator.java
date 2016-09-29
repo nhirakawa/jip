@@ -85,6 +85,10 @@ public class JipEmulator {
     return soundTimer;
   }
 
+  void setSoundTimer(int i) {
+    soundTimer = i;
+  }
+
   int getDelayTimer() {
     return delayTimer;
   }
@@ -132,6 +136,9 @@ public class JipEmulator {
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
+        break;
+      case OP_FX18:
+        soundTimer = memoryManagementUnit.readRegister(opcode.getX());
         break;
       case OP_FX1E:
         indexRegister += memoryManagementUnit.readRegister(opcode.getX());
