@@ -44,6 +44,13 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes1NNN() {
+    emulator.loadRom(ints(0x1F, 0xE9));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(0xFE9);
+  }
+
+  @Test
   public void itExecutes3XNN() {
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0A));

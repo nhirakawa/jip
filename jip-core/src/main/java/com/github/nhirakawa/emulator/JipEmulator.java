@@ -131,6 +131,9 @@ public class JipEmulator {
         programCounter = memoryManagementUnit.readStack(stackPointer);
         memoryManagementUnit.writeStack(stackPointer, 0);
         return 1;
+      case OP_1NNN:
+        programCounter = opcode.getN();
+        return 0;
       case OP_3XNN:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         return registerX == opcode.getN() ? 2 : 1;
