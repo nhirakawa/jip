@@ -73,6 +73,10 @@ public class JipEmulator {
       case OP_6XNN:
         memoryManagementUnit.writeRegister(opcode.getX(), opcode.getN());
         break;
+      case OP_7XNN:
+        int registerX = memoryManagementUnit.readRegister(opcode.getX());
+        memoryManagementUnit.writeRegister(opcode.getX(), registerX + opcode.getN());
+        break;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
     }

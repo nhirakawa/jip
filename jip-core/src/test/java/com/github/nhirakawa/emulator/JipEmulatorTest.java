@@ -17,7 +17,7 @@ public class JipEmulatorTest {
 
   @Before
   public void setup() {
-    mmu = new MemoryManagementUnit(4096, 8, 8, 8, 8, 8);
+    mmu = new MemoryManagementUnit(4096, 16, 16, 16, 16, 16);
     emulator = new JipEmulator(mmu);
   }
 
@@ -26,6 +26,13 @@ public class JipEmulatorTest {
     emulator.loadRom(new byte[] { 0x65, 0x07 });
     emulator.step();
     assertThat(mmu.readRegister(0x5)).isEqualTo(7);
+  }
+
+  @Test
+  public void itExecutes7XNN() {
+    emulator.loadRom(new byte[] { 0x7A, 0x4F });
+    emulator.step();
+    assertThat(mmu.readRegister(0xA)).isEqualTo(0x4F);
   }
 
   @Test
