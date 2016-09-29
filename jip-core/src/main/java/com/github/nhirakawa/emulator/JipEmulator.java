@@ -57,6 +57,7 @@ public class JipEmulator {
 
   public void loadRom(int[] rom) {
     memoryManagementUnit.writeMemory(0, rom);
+    programCounter = 0;
   }
 
   int getProgramCounter() {
@@ -154,6 +155,10 @@ public class JipEmulator {
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
         return 1;
+      case OP_9XY0:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        registerY = memoryManagementUnit.readRegister(opcode.getY());
+        return registerX != registerY ? 2 : 1;
       case OP_ANNN:
         indexRegister = opcode.getN();
         return 1;
