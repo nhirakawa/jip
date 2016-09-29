@@ -60,6 +60,18 @@ public class JipEmulator {
     executeOpCode(opcode);
   }
 
+  int getProgramCounter() {
+    return programCounter;
+  }
+
+  int getStackPointer() {
+    return stackPointer;
+  }
+
+  int getIndexRegister() {
+    return indexRegister;
+  }
+
   private OpCode fetchOpCode() {
     int op = memoryManagementUnit.readMemory(ROM_OFFSET + programCounter) << 8 | memoryManagementUnit.readMemory(ROM_OFFSET + programCounter + 1);
     OpCodeType opType = OpCodeType.of(op);
