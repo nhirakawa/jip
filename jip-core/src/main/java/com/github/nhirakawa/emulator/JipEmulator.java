@@ -23,6 +23,9 @@ public class JipEmulator {
   private int programCounter;
   private int stackPointer;
 
+  private int soundTimer;
+  private int delayTimer;
+
   private final MemoryManagementUnit memoryManagementUnit;
 
   @Inject
@@ -31,6 +34,8 @@ public class JipEmulator {
     this.indexRegister = 0;
     this.programCounter = 0;
     this.stackPointer = 0;
+    this.soundTimer = 0;
+    this.delayTimer = 0;
   }
 
   public void loadRom(File file) throws IOException {
@@ -70,6 +75,14 @@ public class JipEmulator {
 
   int getIndexRegister() {
     return indexRegister;
+  }
+
+  int getSoundTimer() {
+    return soundTimer;
+  }
+
+  int getDelayTimer() {
+    return delayTimer;
   }
 
   private OpCode fetchOpCode() {
