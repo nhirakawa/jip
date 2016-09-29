@@ -3,6 +3,8 @@ package com.github.nhirakawa.emulator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.Random;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,12 +15,14 @@ public class JipEmulatorTest {
   private static final int ROM_OFFSET = 0x200;
 
   private MemoryManagementUnit mmu;
+  private Random random;
   private JipEmulator emulator;
 
   @Before
   public void setup() {
     mmu = new MemoryManagementUnit(4096, 16, 16, 16, 16, 16);
-    emulator = new JipEmulator(mmu);
+    random = new Random(100);
+    emulator = new JipEmulator(mmu, random);
   }
 
   @Test
@@ -68,6 +72,14 @@ public class JipEmulatorTest {
     emulator.loadRom(ints(0x80, 0x13));
     emulator.step();
     assertThat(mmu.readRegister(0x0)).isEqualTo(1 ^ 2);
+  }
+
+  @Test
+  public void itExecutesCXNN() {
+    mmu.writeRegister(0, 10);
+    emulator.loadRom(ints(0xC0, 0xA0));
+    emulator.step();
+    assertThat(mmu.readRegister(0)).isEqualTo(31 & 0xA0);
   }
 
   @Test

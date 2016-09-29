@@ -3,6 +3,7 @@ package com.github.nhirakawa.emulator;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
@@ -27,10 +28,13 @@ public class JipEmulator {
   private int delayTimer;
 
   private final MemoryManagementUnit memoryManagementUnit;
+  private final Random random;
 
   @Inject
-  public JipEmulator(MemoryManagementUnit memoryManagementUnit) {
+  public JipEmulator(MemoryManagementUnit memoryManagementUnit,
+                     Random random) {
     this.memoryManagementUnit = memoryManagementUnit;
+    this.random = random;
     this.indexRegister = 0;
     this.programCounter = 0;
     this.stackPointer = 0;
@@ -140,6 +144,10 @@ public class JipEmulator {
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
+        break;
+      case OP_CXNN:
+        int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
+        memoryManagementUnit.writeRegister(opcode.getX(), rand);
         break;
       case OP_FX07:
         memoryManagementUnit.writeRegister(opcode.getX(), delayTimer);
