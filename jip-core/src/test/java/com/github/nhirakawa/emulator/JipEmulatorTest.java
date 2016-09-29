@@ -145,6 +145,36 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesEX9E() {
+    mmu.writeKeypad(0, true);
+    emulator.loadRom(ints(0xE0, 0x9E));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+
+    emulator.setIndexRegister(0);
+
+    mmu.writeKeypad(0, false);
+    emulator.loadRom(ints(0xE0, 0x9E));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+  }
+
+  @Test
+  public void itExecutesEXA1() {
+    mmu.writeKeypad(0, false);
+    emulator.loadRom(ints(0xE0, 0xA1));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(4);
+
+    emulator.setIndexRegister(0);
+
+    mmu.writeKeypad(0, true);
+    emulator.loadRom(ints(0xE0, 0xA1));
+    emulator.step();
+    assertThat(emulator.getProgramCounter()).isEqualTo(2);
+  }
+
+  @Test
   public void itExecutesFX07() {
     emulator.setDelayTimer(7);
     mmu.writeRegister(1, 4);

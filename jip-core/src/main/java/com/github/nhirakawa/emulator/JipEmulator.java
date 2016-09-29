@@ -166,6 +166,12 @@ public class JipEmulator {
         int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
         memoryManagementUnit.writeRegister(opcode.getX(), rand);
         return 1;
+      case OP_EX9E:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        return memoryManagementUnit.readKeypad(registerX) ? 2 : 1;
+      case OP_EXA1:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        return memoryManagementUnit.readKeypad(registerX) ? 1 : 2;
       case OP_FX07:
         memoryManagementUnit.writeRegister(opcode.getX(), delayTimer);
         return 1;
