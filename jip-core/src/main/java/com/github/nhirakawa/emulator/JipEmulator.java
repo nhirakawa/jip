@@ -94,6 +94,11 @@ public class JipEmulator {
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX | registerY);
         break;
+      case OP_8XY2:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        registerY = memoryManagementUnit.readRegister(opcode.getY());
+        memoryManagementUnit.writeRegister(opcode.getX(), registerX & registerY);
+        break;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
     }
