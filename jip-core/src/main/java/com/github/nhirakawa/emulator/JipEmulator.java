@@ -168,7 +168,7 @@ public class JipEmulator {
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
     }
-    return 2;
+    return 1;
   }
 
   public static class UnsupportedOperationException extends RuntimeException {
