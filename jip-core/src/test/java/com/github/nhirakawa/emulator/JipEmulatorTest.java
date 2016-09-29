@@ -180,6 +180,19 @@ public class JipEmulatorTest {
     assertThat(emulator.getIndexRegister()).isEqualTo(6);
   }
 
+  @Test
+  public void itExecutesFX65() {
+    emulator.setIndexRegister(2);
+    for (int i = 0; i < 5; i++) {
+      mmu.writeMemory(2 + i, i);
+    }
+    emulator.loadRom(ints(0xF4, 0x65));
+    emulator.step();
+    for (int i = 0; i < 5; i++) {
+      assertThat(mmu.readRegister(i)).isEqualTo(i);
+    }
+  }
+
   private static int translateAddress(int a) {
     return ROM_OFFSET + a;
   }

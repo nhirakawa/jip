@@ -64,7 +64,7 @@ public class JipEmulator {
     return programCounter;
   }
 
-  void setProgramCounter(int i){
+  void setProgramCounter(int i) {
     programCounter = i;
   }
 
@@ -177,6 +177,13 @@ public class JipEmulator {
         return 1;
       case OP_FX1E:
         indexRegister += memoryManagementUnit.readRegister(opcode.getX());
+        return 1;
+      case OP_FX65:
+        registerX = opcode.getX();
+        for (int i = 0; i <= registerX; i++) {
+          int memoryValue = memoryManagementUnit.readMemory(indexRegister + i);
+          memoryManagementUnit.writeRegister(i, memoryValue);
+        }
         return 1;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
