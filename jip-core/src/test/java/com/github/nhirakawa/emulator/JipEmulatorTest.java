@@ -71,6 +71,15 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesFX1E() {
+    emulator.setIndexRegister(1);
+    mmu.writeRegister(0, 5);
+    emulator.loadRom(ints(0xF0, 0x1E));
+    emulator.step();
+    assertThat(emulator.getIndexRegister()).isEqualTo(6);
+  }
+
+  @Test
   public void itThrowsUnsupportedOperationException() {
     emulator.loadRom(new byte[] { 0x50, 0x0F });
     assertThatThrownBy(() -> emulator.step()).isInstanceOf(UnsupportedOperationException.class);

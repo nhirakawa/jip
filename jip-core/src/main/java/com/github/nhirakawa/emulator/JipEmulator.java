@@ -77,6 +77,10 @@ public class JipEmulator {
     return indexRegister;
   }
 
+  void setIndexRegister(int i) {
+    indexRegister = i;
+  }
+
   int getSoundTimer() {
     return soundTimer;
   }
@@ -128,6 +132,9 @@ public class JipEmulator {
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
+        break;
+      case OP_FX1E:
+        indexRegister += memoryManagementUnit.readRegister(opcode.getX());
         break;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
