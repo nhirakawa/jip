@@ -33,6 +33,17 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes00EE() {
+    mmu.writeStack(0, 6);
+    emulator.loadRom(ints(0x00, 0xEE));
+    emulator.setStackPointer(1);
+    emulator.step();
+    assertThat(emulator.getStackPointer()).isEqualTo(0);
+    assertThat(mmu.readStack(0)).isEqualTo(0);
+    assertThat(emulator.getProgramCounter()).isEqualTo(8);
+  }
+
+  @Test
   public void itExecutes3XNN() {
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0A));

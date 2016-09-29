@@ -72,6 +72,10 @@ public class JipEmulator {
     return stackPointer;
   }
 
+  void setStackPointer(int i) {
+    stackPointer = i;
+  }
+
   int getIndexRegister() {
     return indexRegister;
   }
@@ -121,6 +125,11 @@ public class JipEmulator {
     switch (opcode.getOpCodeType()) {
       case OP_00E0:
         memoryManagementUnit.clearGraphics();
+        return 1;
+      case OP_00EE:
+        stackPointer--;
+        programCounter = memoryManagementUnit.readStack(stackPointer);
+        memoryManagementUnit.writeStack(stackPointer, 0);
         return 1;
       case OP_3XNN:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
