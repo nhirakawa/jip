@@ -119,6 +119,9 @@ public class JipEmulator {
     final int registerX;
     final int registerY;
     switch (opcode.getOpCodeType()) {
+      case OP_00E0:
+        memoryManagementUnit.clearGraphics();
+        return 1;
       case OP_3XNN:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         return registerX == opcode.getN() ? 2 : 1;

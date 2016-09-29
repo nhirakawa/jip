@@ -23,6 +23,16 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes00E0() {
+    mmu.writeGraphics(0, true);
+    mmu.writeGraphics(1, true);
+    emulator.loadRom(ints(0x00, 0xE0));
+    emulator.step();
+    assertThat(mmu.readGraphics(0)).isFalse();
+    assertThat(mmu.readGraphics(1)).isFalse();
+  }
+
+  @Test
   public void itExecutes3XNN() {
     mmu.writeRegister(0, 0xA);
     emulator.loadRom(ints(0x30, 0x0A));
