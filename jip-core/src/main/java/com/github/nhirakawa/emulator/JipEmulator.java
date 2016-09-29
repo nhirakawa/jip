@@ -73,17 +73,26 @@ public class JipEmulator {
 
   private void executeOpCode(OpCode opcode) {
     LOG.debug("executing {}", opcode);
+    final int memoryX;
+    final int memoryY;
+    final int registerX;
+    final int registerY;
     switch (opcode.getOpCodeType()) {
       case OP_6XNN:
         memoryManagementUnit.writeRegister(opcode.getX(), opcode.getN());
         break;
       case OP_7XNN:
-        int registerX = memoryManagementUnit.readRegister(opcode.getX());
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX + opcode.getN());
         break;
       case OP_8XY0:
-        int registerY = memoryManagementUnit.readRegister(opcode.getY());
+        registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerY);
+        break;
+      case OP_8XY1:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        registerY = memoryManagementUnit.readRegister(opcode.getY());
+        memoryManagementUnit.writeRegister(opcode.getX(), registerX | registerY);
         break;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
