@@ -36,7 +36,7 @@ public enum OpCodeType {
   OP_FX29("FX29", 0xF029, 0xF0FF, 0x0F00),
   OP_FX33("FX33", 0xF033, 0xF0FF, 0x0F00),
   OP_FX55("FX55", 0xF055, 0xF0FF, 0x0F00),
-  OP_FX65("FX65", 0xF065, 0xF00F, 0x0F00);
+  OP_FX65("FX65", 0xF065, 0xF0FF, 0x0F00);
 
   final String message;
   final int signature;
