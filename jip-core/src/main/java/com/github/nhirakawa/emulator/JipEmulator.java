@@ -122,53 +122,52 @@ public class JipEmulator {
     switch (opcode.getOpCodeType()) {
       case OP_6XNN:
         memoryManagementUnit.writeRegister(opcode.getX(), opcode.getN());
-        break;
+        return 1;
       case OP_7XNN:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX + opcode.getN());
-        break;
+        return 1;
       case OP_8XY0:
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerY);
-        break;
+        return 1;
       case OP_8XY1:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX | registerY);
-        break;
+        return 1;
       case OP_8XY2:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX & registerY);
-        break;
+        return 1;
       case OP_8XY3:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         memoryManagementUnit.writeRegister(opcode.getX(), registerX ^ registerY);
-        break;
+        return 1;
       case OP_ANNN:
         indexRegister = opcode.getN();
-        break;
+        return 1;
       case OP_CXNN:
         int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
         memoryManagementUnit.writeRegister(opcode.getX(), rand);
-        break;
+        return 1;
       case OP_FX07:
         memoryManagementUnit.writeRegister(opcode.getX(), delayTimer);
-        break;
+        return 1;
       case OP_FX15:
         delayTimer = memoryManagementUnit.readRegister(opcode.getX());
-        break;
+        return 1;
       case OP_FX18:
         soundTimer = memoryManagementUnit.readRegister(opcode.getX());
-        break;
+        return 1;
       case OP_FX1E:
         indexRegister += memoryManagementUnit.readRegister(opcode.getX());
-        break;
+        return 1;
       default:
         throw new UnsupportedOperationException(opcode.getOpCodeType());
     }
-    return 1;
   }
 
   public static class UnsupportedOperationException extends RuntimeException {
