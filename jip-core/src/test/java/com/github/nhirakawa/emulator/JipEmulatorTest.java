@@ -376,10 +376,6 @@ public class JipEmulatorTest {
     }
   }
 
-  private static int translateAddress(int a) {
-    return ROM_OFFSET + a;
-  }
-
   private static int[] ints(int... ints) {
     return ints;
   }
