@@ -255,6 +255,12 @@ public class JipEmulator {
       case OP_FX29:
         indexRegister = FONT_OFFSET + (memoryManagementUnit.readRegister(opcode.getX()) * 5);
         return 1;
+      case OP_FX33:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        memoryManagementUnit.writeMemory(indexRegister, registerX / 100);
+        memoryManagementUnit.writeMemory(indexRegister + 1, (registerX / 10) % 10);
+        memoryManagementUnit.writeMemory(indexRegister + 2, (registerX % 100) % 10);
+        return 1;
       case OP_FX55:
         registerX = opcode.getX();
         for (int i = 0; i <= registerX; i++) {

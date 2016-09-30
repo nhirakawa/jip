@@ -331,6 +331,17 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutesFX33() {
+    mmu.writeRegister(0xA, 214);
+    emulator.setIndexRegister(700);
+    emulator.loadRom(ints(0xFA, 0x33));
+    emulator.step();
+    assertThat(mmu.readMemory(700)).isEqualTo(2);
+    assertThat(mmu.readMemory(701)).isEqualTo(1);
+    assertThat(mmu.readMemory(702)).isEqualTo(4);
+  }
+
+  @Test
   public void itExecutesFX1E() {
     emulator.setIndexRegister(1);
     mmu.writeRegister(0, 5);
