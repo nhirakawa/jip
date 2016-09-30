@@ -33,13 +33,13 @@ public class JipEmulator {
   private final Random random;
 
   private final int SCREEN_WIDTH;
-  private final int SCREEN_HEIGHT;
+  private final int KEYPAD;
 
   @Inject
   public JipEmulator(MemoryManagementUnit memoryManagementUnit,
                      Random random,
-                     @Named("screen.width") int width,
-                     @Named("screen.height") int height) {
+                     @Named("keypad") int keypad,
+                     @Named("screen.width") int width) {
     this.memoryManagementUnit = memoryManagementUnit;
     this.random = random;
     this.indexRegister = 0;
@@ -48,7 +48,7 @@ public class JipEmulator {
     this.soundTimer = 0;
     this.delayTimer = 0;
     this.SCREEN_WIDTH = width;
-    this.SCREEN_HEIGHT = height;
+    this.KEYPAD = keypad;
     loadFontSet();
   }
 
@@ -264,8 +264,13 @@ public class JipEmulator {
         memoryManagementUnit.writeRegister(opcode.getX(), delayTimer);
         return 1;
       case OP_FX0A:
-        registerX = opcode.getX();
-        return memoryManagementUnit.readKeypad(registerX) ? 1 : 0;
+        for (int i = 0; i < KEYPAD; i++) {
+          if (memoryManagementUnit.readKeypad(i)) {
+            memoryManagementUnit.writeRegister(opcode.getX(), i);
+            return 1;
+          }
+        }
+        return 0;
       case OP_FX15:
         delayTimer = memoryManagementUnit.readRegister(opcode.getX());
         return 1;
