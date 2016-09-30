@@ -211,6 +211,15 @@ public class JipEmulatorTest {
   }
 
   @Test
+  public void itExecutes8XYE() {
+    mmu.writeRegister(0x0, 0x81);
+    emulator.loadRom(ints(0x80, 0x0E));
+    emulator.step();
+    assertThat(mmu.readRegister(0x0)).isEqualTo(2);
+    assertThat(mmu.readRegister(0xF)).isEqualTo(0x1);
+  }
+
+  @Test
   public void itExecutes9XY0() {
     mmu.writeRegister(0, 0x3);
     mmu.writeRegister(1, 0xE);
