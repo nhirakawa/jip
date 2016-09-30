@@ -194,9 +194,9 @@ public class JipEmulator {
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
         if (registerY > registerX) {
-          memoryManagementUnit.writeRegister(0xF, 1);
-        } else {
           memoryManagementUnit.writeRegister(0xF, 0);
+        } else {
+          memoryManagementUnit.writeRegister(0xF, 1);
         }
         memoryManagementUnit.writeRegister(opcode.getX(), (registerX - registerY) & 0xFF);
         return 1;

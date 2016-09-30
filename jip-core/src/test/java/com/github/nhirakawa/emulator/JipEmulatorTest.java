@@ -174,14 +174,14 @@ public class JipEmulatorTest {
     emulator.loadRom(ints(0x80, 0x15));
     emulator.step();
     assertThat(mmu.readRegister(0x0)).isEqualTo(2);
-    assertThat(mmu.readRegister(0xF)).isEqualTo(0);
+    assertThat(mmu.readRegister(0xF)).isEqualTo(1);
 
     mmu.writeRegister(0x0, 2);
     mmu.writeRegister(0x1, 4);
     emulator.loadRom(ints(0x80, 0x15));
     emulator.step();
     assertThat(mmu.readRegister(0x0)).isEqualTo(254);
-    assertThat(mmu.readRegister(0xF)).isEqualTo(1);
+    assertThat(mmu.readRegister(0xF)).isEqualTo(0);
   }
 
   @Test
