@@ -200,6 +200,11 @@ public class JipEmulator {
         }
         memoryManagementUnit.writeRegister(opcode.getX(), (registerX - registerY) & 0xFF);
         return 1;
+      case OP_8XY6:
+        registerX = memoryManagementUnit.readRegister(opcode.getX());
+        memoryManagementUnit.writeRegister(0xF, registerX & 0x1);
+        memoryManagementUnit.writeRegister(opcode.getX(), registerX >> 1);
+        return 1;
       case OP_9XY0:
         registerX = memoryManagementUnit.readRegister(opcode.getX());
         registerY = memoryManagementUnit.readRegister(opcode.getY());
