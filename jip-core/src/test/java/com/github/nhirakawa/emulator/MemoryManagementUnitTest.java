@@ -67,13 +67,15 @@ public class MemoryManagementUnitTest {
 
   @Test
   public void itReadsAndWritesGraphics() {
-    mmu.writeGraphics(0, true);
+    boolean unset = mmu.writeGraphics(0, true);
     assertThat(mmu.readGraphics(0)).isTrue();
     assertThat(mmu.readGraphics(1)).isFalse();
+    assertThat(unset).isFalse();
 
-    mmu.writeGraphics(0, false);
+    unset = mmu.writeGraphics(0, false);
     assertThat(mmu.readGraphics(0)).isFalse();
     assertThat(mmu.readGraphics(0)).isFalse();
+    assertThat(unset).isTrue();
   }
 
   @Test

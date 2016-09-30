@@ -57,8 +57,10 @@ public class MemoryManagementUnit {
     return graphics[offset];
   }
 
-  public void writeGraphics(int offset, boolean value) {
+  public boolean writeGraphics(int offset, boolean value) {
+    boolean unset = graphics[offset] && !value;
     graphics[offset] = value;
+    return unset;
   }
 
   public void clearGraphics() {
