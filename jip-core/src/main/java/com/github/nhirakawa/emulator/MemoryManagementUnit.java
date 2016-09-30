@@ -63,6 +63,14 @@ public class MemoryManagementUnit {
     return unset;
   }
 
+  public boolean writeGraphics(int offset, boolean[] values) {
+    boolean unset = false;
+    for (int i = 0; i < values.length; i++) {
+      unset |= writeGraphics(offset + i, values[i]);
+    }
+    return unset;
+  }
+
   public void clearGraphics() {
     for (int i = 0; i < graphics.length; i++) {
       graphics[i] = false;
