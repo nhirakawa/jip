@@ -115,7 +115,6 @@ public class JipEmulator {
 
   public void step() {
     OpCode opcode = fetchOpCode();
-    LOG.debug("{}", opcode);
     int instructionsToAdvance = executeOpCode(opcode);
     programCounter += (instructionsToAdvance * 2);
   }
