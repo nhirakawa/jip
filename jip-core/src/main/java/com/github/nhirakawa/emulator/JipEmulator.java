@@ -227,6 +227,9 @@ public class JipEmulator {
       case OP_ANNN:
         indexRegister = opcode.getN();
         return 1;
+      case OP_BNNN:
+        programCounter = opcode.getN() + memoryManagementUnit.readRegister(0);
+        return 0;
       case OP_CXNN:
         int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
         memoryManagementUnit.writeRegister(opcode.getX(), rand);
