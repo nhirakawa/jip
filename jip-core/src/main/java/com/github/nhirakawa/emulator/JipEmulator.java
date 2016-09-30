@@ -13,6 +13,7 @@ import com.github.nhirakawa.models.Font;
 import com.github.nhirakawa.models.OpCode;
 import com.github.nhirakawa.models.OpCodeType;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class JipEmulator {
 
@@ -31,9 +32,14 @@ public class JipEmulator {
   private final MemoryManagementUnit memoryManagementUnit;
   private final Random random;
 
+  private final int SCREEN_WIDTH;
+  private final int SCREEN_HEIGHT;
+
   @Inject
   public JipEmulator(MemoryManagementUnit memoryManagementUnit,
-                     Random random) {
+                     Random random,
+                     @Named("screen.width") int width,
+                     @Named("screen.height") int height) {
     this.memoryManagementUnit = memoryManagementUnit;
     this.random = random;
     this.indexRegister = 0;
@@ -41,6 +47,8 @@ public class JipEmulator {
     this.stackPointer = 0;
     this.soundTimer = 0;
     this.delayTimer = 0;
+    this.SCREEN_WIDTH = width;
+    this.SCREEN_HEIGHT = height;
     loadFontSet();
   }
 
@@ -233,6 +241,19 @@ public class JipEmulator {
       case OP_CXNN:
         int rand = random.nextInt(Byte.MAX_VALUE) & opcode.getN();
         memoryManagementUnit.writeRegister(opcode.getX(), rand);
+        return 1;
+      case OP_DXYN:
+        boolean unsetFlag = false;
+        for (int y = 0; y < opcode.getN(); y++) {
+          int sprite = memoryManagementUnit.readMemory(indexRegister + y);
+          boolean[] spriteRow = new boolean[8];
+          for (int x = 0; x < 8; x++) {
+            spriteRow[x] = ((sprite >> 7 - x) & 0x1) == 1;
+          }
+          unsetFlag |= memoryManagementUnit.writeGraphics(opcode.getX() + ((opcode.getY() + y) * SCREEN_WIDTH), spriteRow);
+        }
+        int flag = unsetFlag ? 1 : 0;
+        memoryManagementUnit.writeRegister(0xF, flag);
         return 1;
       case OP_EX9E:
         registerX = memoryManagementUnit.readRegister(opcode.getX());

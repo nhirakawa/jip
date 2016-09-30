@@ -9,8 +9,6 @@ import org.junit.Test;
 
 public class JipEmulatorTest {
 
-  private static final int ROM_OFFSET = 0x200;
-
   private MemoryManagementUnit mmu;
   private Random random;
   private JipEmulator emulator;
@@ -19,7 +17,7 @@ public class JipEmulatorTest {
   public void setup() {
     mmu = new MemoryManagementUnit(4096, 16, 16, 16, 16, 16);
     random = new Random(100);
-    emulator = new JipEmulator(mmu, random);
+    emulator = new JipEmulator(mmu, random, 16, 16);
   }
 
   @Test
@@ -256,6 +254,36 @@ public class JipEmulatorTest {
     emulator.loadRom(ints(0xC0, 0xA0));
     emulator.step();
     assertThat(mmu.readRegister(0)).isEqualTo(31 & 0xA0);
+  }
+
+  @Test
+  public void itExecutesDXYN() {
+    mmu.writeMemory(1000, ints(0x69, 0xFF));
+    emulator.loadRom(ints(0xD1, 0x12));
+    emulator.setIndexRegister(1000);
+    emulator.step();
+    assertThat(mmu.readGraphics(17)).isFalse();
+    assertThat(mmu.readGraphics(18)).isTrue();
+    assertThat(mmu.readGraphics(19)).isTrue();
+    assertThat(mmu.readGraphics(20)).isFalse();
+    assertThat(mmu.readGraphics(21)).isTrue();
+    assertThat(mmu.readGraphics(22)).isFalse();
+    assertThat(mmu.readGraphics(23)).isFalse();
+    assertThat(mmu.readGraphics(24)).isTrue();
+    for (int i = 33; i < 41; i++) {
+      assertThat(mmu.readGraphics(i)).isTrue();
+    }
+    assertThat(mmu.readRegister(0xF)).isEqualTo(0);
+
+    mmu.writeMemory(1000, ints(0x00, 0x00));
+    emulator.loadRom(ints(0xD1, 0x21));
+    emulator.setIndexRegister(1000);
+    emulator.step();
+    for (int i = 33; i < 41; i++) {
+      assertThat(mmu.readGraphics(i)).isFalse();
+    }
+    assertThat(mmu.readRegister(0xF)).isEqualTo(1);
+
   }
 
   @Test
