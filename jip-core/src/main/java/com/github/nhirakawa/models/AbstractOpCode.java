@@ -18,13 +18,13 @@ public abstract class AbstractOpCode {
   public String toString() {
     ToStringHelper helper = MoreObjects.toStringHelper(OpCode.class)
         .add("OpCodeType", getOpCodeType());
-    if (getX() != 0) {
+    if (getX() != Integer.MIN_VALUE) {
       helper.add("x", getX());
     }
-    if (getY() != 0) {
+    if (getY() != Integer.MIN_VALUE) {
       helper.add("y", getY());
     }
-    if (getN() != 0) {
+    if (getN() != Integer.MIN_VALUE) {
       helper.add("n", getN());
     }
     return helper.toString();
