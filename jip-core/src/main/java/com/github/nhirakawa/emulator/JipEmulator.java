@@ -9,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.github.nhirakawa.exceptions.UnsupportedOperationException;
 import com.github.nhirakawa.models.Font;
 import com.github.nhirakawa.models.OpCode;
 import com.github.nhirakawa.models.OpCodeType;
@@ -313,13 +314,6 @@ public class JipEmulator {
     for (Font f : Font.values()) {
       memoryManagementUnit.writeMemory(FONT_OFFSET + (index * 5), f.getPixels());
       index++;
-    }
-  }
-
-  public static class UnsupportedOperationException extends RuntimeException {
-
-    public UnsupportedOperationException(OpCodeType opCode) {
-      super(String.format("%s is not supported", opCode));
     }
   }
 
