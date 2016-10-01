@@ -14,9 +14,9 @@ public class OpCodeTypeTest {
     int op = 0x00E0;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_00E0);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -24,9 +24,9 @@ public class OpCodeTypeTest {
     int op = 0x00EE;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_00EE);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -34,14 +34,14 @@ public class OpCodeTypeTest {
     int op = 0x1000;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_1NNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(0x000);
 
     op = 0x1FFF;
     assertThat(opcode).isEqualTo(OpCodeType.OP_1NNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xFFF);
   }
 
@@ -50,15 +50,15 @@ public class OpCodeTypeTest {
     int op = 0x2000;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_2NNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0x000);
 
     op = 0x2AAA;
     opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_2NNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xAAA);
   }
 
@@ -68,7 +68,7 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_3XNN);
     assertThat(opcode.getX(op)).isEqualTo(0xB);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xCC);
   }
 
@@ -78,7 +78,7 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_4XNN);
     assertThat(opcode.getX(op)).isEqualTo(0xA);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xDD);
   }
 
@@ -89,7 +89,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_5XY0);
     assertThat(opcode.getX(op)).isEqualTo(0xA);
     assertThat(opcode.getY(op)).isEqualTo(0xE);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -98,7 +98,7 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_6XNN);
     assertThat(opcode.getX(op)).isEqualTo(0xF);
-    assertThat(opcode.getY(op)).isEqualTo(0x0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xAA);
   }
 
@@ -108,7 +108,7 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_7XNN);
     assertThat(opcode.getX(op)).isEqualTo(0xF);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xA4);
   }
 
@@ -119,7 +119,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY0);
     assertThat(opcode.getX(op)).isEqualTo(0x2);
     assertThat(opcode.getY(op)).isEqualTo(0xD);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -129,7 +129,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY1);
     assertThat(opcode.getX(op)).isEqualTo(0x1);
     assertThat(opcode.getY(op)).isEqualTo(0x2);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -139,7 +139,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY2);
     assertThat(opcode.getX(op)).isEqualTo(0x4);
     assertThat(opcode.getY(op)).isEqualTo(0x1);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -149,7 +149,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY3);
     assertThat(opcode.getX(op)).isEqualTo(0x9);
     assertThat(opcode.getY(op)).isEqualTo(0xE);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -159,7 +159,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY4);
     assertThat(opcode.getX(op)).isEqualTo(0x0);
     assertThat(opcode.getY(op)).isEqualTo(0xA);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -169,7 +169,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY5);
     assertThat(opcode.getX(op)).isEqualTo(0xB);
     assertThat(opcode.getY(op)).isEqualTo(0x7);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -179,7 +179,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY6);
     assertThat(opcode.getX(op)).isEqualTo(0x6);
     assertThat(opcode.getY(op)).isEqualTo(0xF);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -189,7 +189,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XY7);
     assertThat(opcode.getX(op)).isEqualTo(0xA);
     assertThat(opcode.getY(op)).isEqualTo(0xE);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -199,7 +199,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_8XYE);
     assertThat(opcode.getX(op)).isEqualTo(0xE);
     assertThat(opcode.getY(op)).isEqualTo(0xF);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -209,7 +209,7 @@ public class OpCodeTypeTest {
     assertThat(opcode).isEqualTo(OpCodeType.OP_9XY0);
     assertThat(opcode.getX(op)).isEqualTo(0x0);
     assertThat(opcode.getY(op)).isEqualTo(0x1);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -217,8 +217,8 @@ public class OpCodeTypeTest {
     int op = 0xAFE3;
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_ANNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xFE3);
   }
 
@@ -227,16 +227,16 @@ public class OpCodeTypeTest {
     int op = 0xBFFF;
     OpCodeType opcode = OpCodeType.of(0xBFFF);
     assertThat(opcode).isEqualTo(OpCodeType.OP_BNNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0xFFF);
 
     op = 0xB000;
     opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_BNNN);
-    assertThat(opcode.getX(op)).isEqualTo(0);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getX(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(0x000);
   }
 
   @Test
@@ -245,7 +245,7 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_CXNN);
     assertThat(opcode.getX(op)).isEqualTo(0xB);
-    assertThat(opcode.getY(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
     assertThat(opcode.getN(op)).isEqualTo(0x9C);
   }
 
@@ -265,8 +265,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_EX9E);
     assertThat(opcode.getX(op)).isEqualTo(0x4);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -275,8 +275,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_EXA1);
     assertThat(opcode.getX(op)).isEqualTo(0x8);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -285,8 +285,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX07);
     assertThat(opcode.getX(op)).isEqualTo(0x2);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -295,8 +295,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX0A);
     assertThat(opcode.getX(op)).isEqualTo(0xD);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -305,8 +305,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX15);
     assertThat(opcode.getX(op)).isEqualTo(0x1);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -315,8 +315,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX18);
     assertThat(opcode.getX(op)).isEqualTo(0x2);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -325,8 +325,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX1E);
     assertThat(opcode.getX(op)).isEqualTo(0x6);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -335,8 +335,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX29);
     assertThat(opcode.getX(op)).isEqualTo(0x7);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -345,8 +345,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX33);
     assertThat(opcode.getX(op)).isEqualTo(0xA);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -355,8 +355,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX55);
     assertThat(opcode.getX(op)).isEqualTo(0xB);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
@@ -365,8 +365,8 @@ public class OpCodeTypeTest {
     OpCodeType opcode = OpCodeType.of(op);
     assertThat(opcode).isEqualTo(OpCodeType.OP_FX65);
     assertThat(opcode.getX(op)).isEqualTo(0xD);
-    assertThat(opcode.getY(op)).isEqualTo(0);
-    assertThat(opcode.getN(op)).isEqualTo(0);
+    assertThat(opcode.getY(op)).isEqualTo(Integer.MIN_VALUE);
+    assertThat(opcode.getN(op)).isEqualTo(Integer.MIN_VALUE);
   }
 
   @Test
