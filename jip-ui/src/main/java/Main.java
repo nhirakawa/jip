@@ -12,8 +12,9 @@ public class Main {
   public static void main(String... args) throws IOException, URISyntaxException {
     Injector injector = Guice.createInjector(new JipCoreModule());
     JipEmulator emulator = injector.getInstance(JipEmulator.class);
-    emulator.loadRom(Resources.getResource("MAZE.rom").toURI());
-    emulator.step();
-    emulator.step();
+    emulator.loadRom(Resources.getResource("PONG.rom").toURI());
+    while (true) {
+      emulator.step();
+    }
   }
 }

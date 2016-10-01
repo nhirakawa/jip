@@ -1,3 +1,5 @@
+package com.github.nhirakawa.jip;
+
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
@@ -33,11 +35,11 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
-public class HelloLwjgl {
+public class JipApplication {
 
   private long window;
 
-  public HelloLwjgl() {
+  public JipApplication() {
 
   }
 
@@ -129,6 +131,6 @@ public class HelloLwjgl {
   }
 
   public static void main(String... args) {
-    new HelloLwjgl().run();
+    new JipApplication().run();
   }
 }
