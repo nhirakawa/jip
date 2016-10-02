@@ -18,6 +18,7 @@ public class JipDebugger extends JFrame implements Runnable {
   private final JPanel panel;
   private final JPanel textPanel;
   private final JTextArea memory;
+  private final JTextArea registers;
   private final JPanel currentInstructionPanel;
   private final JTextField programCounter;
   private final JTextField instructionRegister;
@@ -30,7 +31,8 @@ public class JipDebugger extends JFrame implements Runnable {
     panel = new JPanel(true);
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-    memory = new JTextArea(10, 16);
+    memory = new JTextArea(16, 10);
+    registers = new JTextArea(16, 10);
     textPanel = getMemoryPanel();
 
     controlPanel = getControlPanel();
@@ -78,18 +80,34 @@ public class JipDebugger extends JFrame implements Runnable {
       this.memory.append(String.format("0x%s - %s%n", JipUtils.toHexString(i), JipUtils.toHexString(memory[i])));
     }
 
-
+    registers.setText("");
+    int[] registers = emulator.getRegisters();
+    for (int i = 0; i < registers.length; i++) {
+      this.registers.append(String.format("V%X - %s%n", i, JipUtils.toHexString(registers[i])));
+    }
   }
 
   private JPanel getMemoryPanel() {
-    JPanel textPanel = new JPanel();
-    textPanel.setBorder(BorderFactory.createTitledBorder("memory"));
+    JPanel memoryPanel = new JPanel();
+
+    JPanel memoryTextPanel = new JPanel();
+    memoryTextPanel.setBorder(BorderFactory.createTitledBorder("memory"));
     memory.setEditable(false);
-    JScrollPane scrollPane = new JScrollPane(memory);
-    scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-    scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    textPanel.add(scrollPane);
-    return textPanel;
+    JScrollPane memoryScrollPane = new JScrollPane(memory);
+    memoryScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    memoryScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    memoryTextPanel.add(memoryScrollPane);
+
+    JPanel registerTextPanel = new JPanel();
+    registerTextPanel.setBorder(BorderFactory.createTitledBorder("registers"));
+    JScrollPane registersScrollPane = new JScrollPane(registers);
+    registersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+    registersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    registerTextPanel.add(registersScrollPane);
+
+    memoryPanel.add(memoryTextPanel);
+    memoryPanel.add(registerTextPanel);
+    return memoryPanel;
   }
 
   private JPanel getCurrentInstructionPanel() {
