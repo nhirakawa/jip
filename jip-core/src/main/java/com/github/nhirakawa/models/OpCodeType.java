@@ -232,7 +232,7 @@ public enum OpCodeType {
     }
 
     public String describe(int op) {
-      return String.format("set I %s", hex(op));
+      return String.format("set I %X", getN(op));
     }
   },
   OP_BNNN("BNNN", 0xB000, 0xF000) {
