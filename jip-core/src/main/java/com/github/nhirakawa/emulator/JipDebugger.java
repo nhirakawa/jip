@@ -30,9 +30,9 @@ public class JipDebugger extends JFrame {
     JPanel panel = new JPanel(true);
     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-    memory = new JTextArea(16, 10);
-    registers = new JTextArea(16, 10);
-    stack = new JTextArea(16, 10);
+    memory = new JTextArea(20, 10);
+    registers = new JTextArea(20, 10);
+    stack = new JTextArea(20, 10);
     JPanel textPanel = getMemoryPanel();
 
     opCode = new JTextField();
@@ -68,7 +68,7 @@ public class JipDebugger extends JFrame {
     memory.setText("");
     int[] memory = emulator.getMemory();
     for (int i = 0x200; i < memory.length; i++) {
-      this.memory.append(String.format("0x%s - %s%n", JipUtils.toHexString(i), JipUtils.toHexString(memory[i])));
+      this.memory.append(String.format("0x%04X - %02X%n", i, memory[i]));
     }
 
     registers.setText("");
