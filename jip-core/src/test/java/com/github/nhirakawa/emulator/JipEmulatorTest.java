@@ -21,18 +21,18 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes00E0() {
-    mmu.writeGraphics(0, true);
-    mmu.writeGraphics(1, true);
+    mmu.writeGraphics(0x0, true);
+    mmu.writeGraphics(0x1, true);
     emulator.loadRom(ints(0x00, 0xE0));
     emulator.step();
-    assertThat(mmu.readGraphics(0)).isFalse();
-    assertThat(mmu.readGraphics(1)).isFalse();
+    assertThat(mmu.readGraphics(0x0)).isFalse();
+    assertThat(mmu.readGraphics(0x1)).isFalse();
     assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
   public void itExecutes00EE() {
-    mmu.writeStack(0, 6);
+    mmu.writeStack(0x0, 6);
     emulator.loadRom(ints(0x00, 0xEE));
     emulator.setStackPointer(1);
     emulator.step();
@@ -50,7 +50,6 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes2NNN() {
-    mmu.writeStack(0, -1);
     emulator.loadRom(ints(0x2B, 0xED));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(0xBED);
@@ -59,13 +58,13 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes3XNN() {
-    mmu.writeRegister(0, 0xA);
-    emulator.loadRom(ints(0x30, 0x0A));
+    mmu.writeRegister(0, 0xA0);
+    emulator.loadRom(ints(0x30, 0xA0));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
-    mmu.writeRegister(0, 0xA);
-    emulator.loadRom(ints(0x30, 0x0B));
+    mmu.writeRegister(0, 0xA0);
+    emulator.loadRom(ints(0x30, 0xB0));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(514);
 
@@ -73,21 +72,21 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes4XNN() {
-    mmu.writeRegister(0, 0xD);
+    mmu.writeRegister(0, 0xD0);
     emulator.loadRom(ints(0x40, 0x0E));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(516);
 
-    mmu.writeRegister(0, 0xE);
-    emulator.loadRom(ints(0x40, 0x0E));
+    mmu.writeRegister(0, 0xE0);
+    emulator.loadRom(ints(0x40, 0xE0));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
   public void itExecutes5XY0() {
-    mmu.writeRegister(0, 0xD);
-    mmu.writeRegister(1, 0xD);
+    mmu.writeRegister(0, 0xD0);
+    mmu.writeRegister(1, 0xD0);
     emulator.loadRom(ints(0x50, 0x10));
     emulator.step();
     assertThat(emulator.getProgramCounter()).isEqualTo(516);
@@ -108,13 +107,15 @@ public class JipEmulatorTest {
 
   @Test
   public void itExecutes7XNN() {
+    mmu.writeRegister(0xA, 5);
     emulator.loadRom(ints(0x7A, 0x4F));
     emulator.step();
-    assertThat(mmu.readRegister(0xA)).isEqualTo(0x4F);
+    assertThat(mmu.readRegister(0xA)).isEqualTo(0x4F + 5);
   }
 
   @Test
   public void itExecutes8XY0() {
+    mmu.writeRegister(0x0, 0xFA);
     mmu.writeRegister(0xA, 0xB);
     emulator.loadRom(ints(0x80, 0xA0));
     emulator.step();
