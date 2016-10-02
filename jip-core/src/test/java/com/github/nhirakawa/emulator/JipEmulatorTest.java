@@ -10,14 +10,13 @@ import org.junit.Test;
 public class JipEmulatorTest {
 
   private MemoryManagementUnit mmu;
-  private Random random;
+  private static final Random RANDOM = new Random(100);
   private JipEmulator emulator;
 
   @Before
   public void setup() {
     mmu = new MemoryManagementUnit(4096, 16, 16, 16, 16, 16);
-    random = new Random(100);
-    emulator = new JipEmulator(mmu, random, 16, 16);
+    emulator = new JipEmulator(mmu, RANDOM, 16, 16);
   }
 
   @Test
@@ -28,6 +27,7 @@ public class JipEmulatorTest {
     emulator.step();
     assertThat(mmu.readGraphics(0)).isFalse();
     assertThat(mmu.readGraphics(1)).isFalse();
+    assertThat(emulator.getProgramCounter()).isEqualTo(514);
   }
 
   @Test
