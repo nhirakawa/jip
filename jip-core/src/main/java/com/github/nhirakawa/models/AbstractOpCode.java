@@ -9,10 +9,32 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 @JipStyle
 public abstract class AbstractOpCode {
 
-  public abstract OpCodeType getOpCodeType();
-  public abstract int getX();
-  public abstract int getY();
-  public abstract int getN();
+  public abstract int getOpCode();
+
+  @Value.Lazy
+  public OpCodeType getOpCodeType() {
+    return OpCodeType.of(getOpCode());
+  }
+
+  @Value.Lazy
+  public int getX() {
+    return getOpCodeType().getX(getOpCode());
+  }
+
+  @Value.Lazy
+  public int getY() {
+    return getOpCodeType().getY(getOpCode());
+  }
+
+  @Value.Lazy
+  public int getN() {
+    return getOpCodeType().getN(getOpCode());
+  }
+
+  @Value.Lazy
+  public String describe() {
+    return getOpCodeType().describe(getOpCode());
+  }
 
   @Override
   public String toString() {

@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import com.github.nhirakawa.exceptions.UnsupportedOperationException;
 import com.github.nhirakawa.models.Font;
 import com.github.nhirakawa.models.OpCode;
-import com.github.nhirakawa.models.OpCodeType;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -122,12 +121,8 @@ public class JipEmulator {
 
   private OpCode fetchOpCode() {
     int op = memoryManagementUnit.readMemory(programCounter) << 8 | memoryManagementUnit.readMemory(programCounter + 1);
-    OpCodeType opType = OpCodeType.of(op);
     return OpCode.builder()
-        .setOpCodeType(opType)
-        .setX(opType.getX(op))
-        .setY(opType.getY(op))
-        .setN(opType.getN(op))
+        .setOpCode(op)
         .build();
   }
 
