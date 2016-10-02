@@ -34,6 +34,6 @@ public class JipUtils {
   }
 
   public static String toHexString(int i) {
-    return String.format("%04X", i);
+    return String.format("%02X", i);
   }
 }
