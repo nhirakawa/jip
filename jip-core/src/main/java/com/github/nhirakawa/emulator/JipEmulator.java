@@ -153,7 +153,7 @@ public class JipEmulator {
   }
 
   private int executeOpCode() {
-    LOG.debug("executing {}", opCode);
+    LOG.debug("{}", opCode.describe());
     final int registerX;
     final int registerY;
     switch (opCode.getOpCodeType()) {
