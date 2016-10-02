@@ -119,6 +119,26 @@ public class JipEmulator {
     programCounter += (instructionsToAdvance * 2);
   }
 
+  public int[] getMemory() {
+    return memoryManagementUnit.viewMemory();
+  }
+
+  public int[] getRegisters(){
+    return memoryManagementUnit.viewRegisters();
+  }
+
+  public int[] getStack(){
+    return memoryManagementUnit.viewStack();
+  }
+
+  public boolean[] getGraphics(){
+    return memoryManagementUnit.viewGraphics();
+  }
+
+  public boolean[] getKeypad(){
+    return memoryManagementUnit.viewKeypad();
+  }
+
   private OpCode fetchOpCode() {
     int op = memoryManagementUnit.readMemory(programCounter) << 8 | memoryManagementUnit.readMemory(programCounter + 1);
     return OpCode.builder()
