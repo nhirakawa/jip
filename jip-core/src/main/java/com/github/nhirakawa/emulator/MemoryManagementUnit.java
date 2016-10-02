@@ -1,5 +1,7 @@
 package com.github.nhirakawa.emulator;
 
+import java.util.Arrays;
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -29,6 +31,10 @@ public class MemoryManagementUnit {
     return memory[offset];
   }
 
+  public int[] viewMemory() {
+    return Arrays.copyOf(memory, memory.length);
+  }
+
   public void writeMemory(int offset, int value) {
     memory[offset] = value;
   }
@@ -41,6 +47,10 @@ public class MemoryManagementUnit {
     return registers[offset];
   }
 
+  public int[] viewRegisters() {
+    return Arrays.copyOf(registers, registers.length);
+  }
+
   public void writeRegister(int offset, int value) {
     registers[offset] = value;
   }
@@ -49,12 +59,20 @@ public class MemoryManagementUnit {
     return stack[offset];
   }
 
+  public int[] viewStack() {
+    return Arrays.copyOf(stack, stack.length);
+  }
+
   public void writeStack(int offset, int value) {
     stack[offset] = value;
   }
 
   public boolean readGraphics(int offset) {
     return graphics[offset];
+  }
+
+  public boolean[] viewGraphics() {
+    return Arrays.copyOf(graphics, graphics.length);
   }
 
   public boolean writeGraphics(int offset, boolean value) {
@@ -79,6 +97,10 @@ public class MemoryManagementUnit {
 
   public boolean readKeypad(int offset) {
     return keypad[offset];
+  }
+
+  public boolean[] viewKeypad() {
+    return Arrays.copyOf(keypad, keypad.length);
   }
 
   public void writeKeypad(int offset, boolean value) {
