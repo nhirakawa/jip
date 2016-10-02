@@ -150,10 +150,7 @@ public class JipDebugger extends JFrame {
     stackPointer.setColumns(4);
 
     JButton next = new JButton("next");
-    next.addActionListener(e -> {
-      emulator.step();
-      loadMemory();
-    });
+    next.addActionListener(e -> emulateCycle());
 
     controlPanel.add(opCodeLabel);
     controlPanel.add(opCode);
