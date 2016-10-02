@@ -32,4 +32,8 @@ public class JipUtils {
         .setOpCode(op)
         .build();
   }
+
+  public static String toHexString(int i) {
+    return String.format("%04X", i);
+  }
 }
