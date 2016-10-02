@@ -1,4 +1,4 @@
-package com.github.nhirakawa.jip;
+package com.github.nhirakawa.jip.lwjgl;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;

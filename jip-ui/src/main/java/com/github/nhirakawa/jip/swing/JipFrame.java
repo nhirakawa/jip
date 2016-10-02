@@ -1,4 +1,4 @@
-package com.github.nhirakawa.jip;
+package com.github.nhirakawa.jip.swing;
 
 import java.awt.*;
 
