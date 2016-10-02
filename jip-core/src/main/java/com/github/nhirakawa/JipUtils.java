@@ -6,7 +6,7 @@ import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
 
-import com.github.nhirakawa.models.OpCodeType;
+import com.github.nhirakawa.models.OpCode;
 
 public class JipUtils {
 
@@ -26,7 +26,10 @@ public class JipUtils {
     return translated;
   }
 
-  public static OpCodeType getOpCode(int op1, int op2) {
-    return OpCodeType.of((op1 << 8) | op2);
+  public static OpCode getOpCode(int op1, int op2) {
+    int op = (op1 << 8) | op2;
+    return OpCode.builder()
+        .setOpCode(op)
+        .build();
   }
 }
