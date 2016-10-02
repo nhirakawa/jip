@@ -72,6 +72,7 @@ public class JipEmulator {
   public void loadRom(int[] rom) {
     memoryManagementUnit.writeMemory(ROM_OFFSET, rom);
     programCounter = ROM_OFFSET;
+    fetchOpCode();
   }
 
   OpCode getOpCode() {
@@ -119,9 +120,9 @@ public class JipEmulator {
   }
 
   public void step() {
-    fetchOpCode();
     int instructionsToAdvance = executeOpCode();
     programCounter += (instructionsToAdvance * 2);
+    fetchOpCode();
   }
 
   public int[] getMemory() {
