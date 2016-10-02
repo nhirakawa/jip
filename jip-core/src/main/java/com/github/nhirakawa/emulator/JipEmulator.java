@@ -74,6 +74,10 @@ public class JipEmulator {
     programCounter = ROM_OFFSET;
   }
 
+  OpCode getOpCode() {
+    return opCode;
+  }
+
   int getProgramCounter() {
     return programCounter;
   }
